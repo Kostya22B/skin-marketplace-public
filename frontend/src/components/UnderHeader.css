@@ -1,0 +1,45 @@
+.under-header{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+.under-title {
+    text-align: center;
+    font-weight: bold;
+    margin-left: 7%;
+    margin-right: 7%;
+  }
+
+  .back-button {
+    margin-top: 20px;
+    margin-left: 5%;
+    position: relative;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #f0f0f0; /* Белый цвет текста */
+}
+
+.back-button::before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-top: 2px solid #f0f0f0; /* Белая стрелка */
+    border-left: 2px solid #f0f0f0; /* Белая стрелка */
+    transform: rotate(-45deg);
+    margin-right: 10px; /* Отступ между стрелкой и текстом */
+}
+
+.back-button:hover::before {
+    border-color: #ffffff; /* Изменение цвета стрелки при наведении */
+}
+
+.back-button:hover {
+    color: #ffffff; /* Изменение цвета текста при наведении */
+}

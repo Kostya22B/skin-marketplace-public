@@ -1,0 +1,138 @@
+.service-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 25px;
+    text-align: center;
+    width: 340px;
+  }
+  
+  .service-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /*very important*/
+    border-radius: 10px;
+  }
+  
+  .service-title {
+    font-size: 20px;
+    margin: 10px 0;
+    text-decoration: none;
+  }
+  
+  .service-description {
+    font-size: 16px;
+  }
+  .price-button-wrap {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .info-button {
+    margin-top: 3%;
+    width: 300px;
+    min-height: 60px;
+    display: inline-flex;
+    font-family: 'Nunito', sans-serif;
+    font-size: 18px;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1.3px;
+    font-weight: 700;
+    color: #313133;
+    background: #4FD1C5;
+  background: linear-gradient(90deg, rgba(129,230,217,1) 0%, rgba(79,209,197,1) 100%);
+    border: none;
+    border-radius: 1000px;
+    box-shadow: 12px 12px 24px rgba(79,209,197,.64);
+    transition: all 0.3s ease-in-out 0s;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    padding: 10px;
+    }
+
+  
+  .info-button:hover, 
+  .info-button:focus {
+    color: #313133;
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+  
+.info-button::after {
+  content: '';
+  width: 30px; height: 30px;
+  border-radius: 100%;
+  border: 6px solid #00FFCB;
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: ring 1.5s infinite;
+}
+
+.info-button:hover::after, 
+.info-button:focus::after {
+  animation: none;
+  display: none;
+}
+  @keyframes ring {
+    0% {
+      width: 30px;
+      height: 30px;
+      opacity: 1;
+    }
+    100% {
+      width: 300px;
+      height: 300px;
+      opacity: 0;
+    }
+  }
+  @media only screen and (max-width: 425px) {
+    .service-title {
+      font-size: 18px;
+    }
+    .service-description {
+      font-size: 12px;
+    }
+    .service-image {
+      height: 150px;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+}
+    .info-button{
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 150px;
+      min-height: 40px;
+      display: inline-flex;
+      font-size: 18px;
+    }
+    .service-info {
+      margin: 0px 10px 0px 0px;
+    }
+    .info-icon{
+      margin: 0px 20px 0px 10px;
+      width: 32px;
+    }
+  }
+  .link-button {
+    text-decoration: none; /* Убирает подчеркивание */
+    color: inherit;        /* Наследует цвет от кнопки */
+    display: inline-block; /* Соответствует кнопке */
+  }
+  

@@ -1,0 +1,183 @@
+.profile-page {
+  background-color: black;
+  color: white;
+}
+
+.profile-info {
+  text-align: center;
+  margin-top: 70px;
+}
+
+.user-purchases {
+  padding: 20px;
+  background-color: black;
+}
+
+.purchases-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.user-purchase-content {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.purchase-card {
+  background-color: #1e1e1e;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  width: calc(70%);
+  /* Two cards per row */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 450px;
+}
+
+.purchase-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.purchase-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.purchase-id {
+  font-size: 16px;
+  color: #333;
+}
+
+.purchase-content {
+  font-size: 14px;
+}
+
+.copy-id-button {
+  height: 35px;
+  width: 35px;
+  background-image: url("/img/buttons/copy_button.png");
+  background-size: cover;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.copy-id-button:hover {
+  opacity: 0.7;
+}
+
+.items-list {
+  list-style-type: none;
+  /* Убираем стандартные маркеры списка */
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  margin: 5px 0;
+  padding: 5px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  border-left: 4px solid #007bff;
+}
+
+.item:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+@media only screen and (max-width: 480px) {
+  .purchase-card {
+    width: 100%;
+  }
+
+  .purchase-header {
+    font-size: 10px;
+  }
+}
+
+/* Telegram connection bot styles */
+.telegram-section {
+  margin-top: 20px;
+  margin-inline: auto;
+  width: 20rem;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.telegram-section a {
+  color: #ff6600;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.telegram-section a:hover {
+  color: #ff4500;
+}
+
+.telegram-input {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.telegram-input input {
+  width: 60%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #333;
+  color: #fff;
+}
+
+.telegram-input input:focus {
+  border-color: #ff6600;
+  outline: none;
+}
+
+.telegram-input button {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: none;
+  background-color: #ff6600;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.telegram-input button:hover {
+  background-color: #ff4500;
+}
+
+.profile-navigation {
+  text-align: center;
+}
+.profile-navigation button{
+  width: 80px;
+  height: 30px;
+  border: none;
+  outline: none;
+  color: var(--complementary-clr);
+  background-color: #282626;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 20px;
+  margin-inline: 1rem;
+}
+.profile-navigation button.active{
+  background-color: #998d8d;
+}

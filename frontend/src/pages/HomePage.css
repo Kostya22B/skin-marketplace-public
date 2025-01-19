@@ -1,0 +1,46 @@
+/* src/pages/HomePage.css */
+.home-page {
+  background-color: black;
+}
+.game-cards-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 60px;
+  text-decoration: none;
+}
+.content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  margin-top: 60px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+h1 {
+  font-size: 36px;
+  font-family: 'TheDark';
+}
+h2 {
+  font-size: 24px;
+  text-align: center;
+}
+@media only screen and (max-width: 712px) {
+  h1 {
+    font-size: 28px;
+  }
+  h2 {
+    font-size: 18px;
+  }
+}
+@media only screen and (max-width: 425px) {
+  h1 {
+    font-size: 20px;
+  }
+  h2 {
+    font-size: 14px;
+  }
+}

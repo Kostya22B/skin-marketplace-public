@@ -1,0 +1,22 @@
+/* src/components/Footer.css */
+.footer {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    border-top: 2px solid #4FD1C5;
+  }
+  
+  .footer-content p {
+    margin: 10px 0;
+  }
+  
+  .footer-content a {
+    color: #4FD1C5;
+    text-decoration: none;
+  }
+  
+  .footer-content a:hover {
+    text-decoration: underline;
+  }
+  

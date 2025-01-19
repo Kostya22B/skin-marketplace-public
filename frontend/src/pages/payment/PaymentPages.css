@@ -1,0 +1,30 @@
+/* src/pages/PaymentPages.css */
+.payment-success, .payment-failure {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .payment-success .content, .payment-failure .content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4FD1C5;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #38B2AC;
+  }
+  
