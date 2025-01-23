@@ -1,7 +1,7 @@
 // routes/purchase.js
 const express = require('express');
 const router = express.Router();
-const purchaseController = require('../controllers/purchaseController');
+const purchaseController = require('../controllers/user_controllers/purchaseController');
 
 // Проверьте, что все эти функции действительно определены в контроллере
 router.post('/initiate', purchaseController.initiatePurchase);

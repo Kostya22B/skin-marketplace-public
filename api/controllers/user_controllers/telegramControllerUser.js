@@ -1,9 +1,9 @@
 // controllers/telegramController.js
 const TelegramBot = require('node-telegram-bot-api');
-const User = require('../models/userModel');
-const Order = require('../models/orderModel')
-const OrderItem = require('../models/orderItemModel')
-const Product = require('../models/productModel')
+const User = require('../../models/userModel');
+const Order = require('../../models/orderModel')
+const OrderItem = require('../../models/orderItemModel')
+const Product = require('../../models/productModel')
 const axios = require('axios');
 
 const userCodes = new Map();

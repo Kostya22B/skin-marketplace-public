@@ -1,14 +1,14 @@
 // controllers/purchaseController.js
-const Product = require('../models/productModel');
-const CoinsTransactions = require('../models/coinsTransactionsModel')
-const Cart = require('../models/cart/cartModel');
-const CartItem = require('../models/cart/cartItemModel');
-const Order = require('../models/orderModel');
-const OrderItem = require('../models/orderItemModel');
-const Coupon = require('../models/coupons/couponModel')
-const UserCoupon = require('../models/coupons/userCouponModel')
-const User = require('../models/userModel')
-const { notifyPurchase } = require('./telegramController');
+const Product = require('../../models/productModel');
+const CoinsTransactions = require('../../models/coinsTransactionsModel')
+const Cart = require('../../models/cart/cartModel');
+const CartItem = require('../../models/cart/cartItemModel');
+const Order = require('../../models/orderModel');
+const OrderItem = require('../../models/orderItemModel');
+const Coupon = require('../../models/coupons/couponModel')
+const UserCoupon = require('../../models/coupons/userCouponModel')
+const User = require('../../models/userModel')
+const { notifyPurchase } = require('./telegramControllerUser');
 const crypto = require('crypto');
 require('dotenv').config();
 

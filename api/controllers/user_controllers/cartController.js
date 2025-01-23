@@ -1,8 +1,8 @@
 // controllers/cartController.js
-const Cart = require('../models/cart/cartModel');
-const CartItem = require('../models/cart/cartItemModel');
-const Product = require('../models/productModel');
-const Coupon = require('../models/coupons/couponModel');
+const Cart = require('../../models/cart/cartModel');
+const CartItem = require('../../models/cart/cartItemModel');
+const Product = require('../../models/productModel');
+const Coupon = require('../../models/coupons/couponModel');
 const { Op } = require('sequelize');
 
 exports.viewCart = async (req, res) => {
