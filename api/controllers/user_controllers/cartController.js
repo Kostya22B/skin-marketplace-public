@@ -1,7 +1,7 @@
 // controllers/cartController.js
 const Cart = require('../../models/cart/cartModel');
 const CartItem = require('../../models/cart/cartItemModel');
-const Product = require('../../models/productModel');
+const Product = require('../../models/shop/productModel');
 const Coupon = require('../../models/coupons/couponModel');
 const { Op } = require('sequelize');
 

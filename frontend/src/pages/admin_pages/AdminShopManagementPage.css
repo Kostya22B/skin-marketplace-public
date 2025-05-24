@@ -1,0 +1,17 @@
+.admin-management-navigation{
+    text-align: center;
+}
+
+.admin-management-navigation button {
+    width: 120px;
+    height: 40px;
+    border: none;
+    outline: none;
+    color: black;
+    background-color: #4fd1c5;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 20px;
+    margin-inline: 1rem;
+}

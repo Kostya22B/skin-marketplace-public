@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './ProfilePage.css';
 import UnderHeader from '../../components/UnderHeader';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { t } from '../../utils/translateUtils';
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -9,6 +11,7 @@ const ProfilePage = () => {
   const [isEditingTelegramName, setIsEditingTelegramName] = useState(false);
   const [newTelegramName, setNewTelegramName] = useState('');
   const [activeSection, setActiveSection] = useState('profile');
+  const { language } = useLanguage();
 
   useEffect(() => {
     fetch('/api/user', { credentials: 'include' })
@@ -38,15 +41,15 @@ const ProfilePage = () => {
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text)
       .then(() => {
-        alert('Номер заказа скопирован в буфер обмена.');
+        alert('Order number copied to clipboard.');
       })
       .catch(err => {
-        console.error('Ошибка при копировании:', err);
-        alert('Не удалось скопировать номер заказа.');
+        console.error('Copy failed:', err);
+        alert('Failed to copy order number.');
       });
   };
 
-  const handleVerifyCode = async () => {
+const handleVerifyCode = async () => {
     const response = await fetch('/api/telegram/verify-code', {
       method: 'POST',
       credentials: 'include',
@@ -61,7 +64,7 @@ const ProfilePage = () => {
 
     const data = await response.json();
     if (data.success) {
-      alert('Telegram успешно привязан!');
+      alert('Telegram successfully linked!');
       setUser({ ...user, telegramId: data.telegramId });
 
       await fetch('/api/telegram/notify-user', {
@@ -75,11 +78,11 @@ const ProfilePage = () => {
         }),
       });
     } else {
-      alert('Неверный код или время истекло.');
+      alert('Invalid code or time expired.');
     }
   };
 
-  const handleUpdateTelegramName = async () => {
+const handleUpdateTelegramName = async () => {
     const response = await fetch('/api/telegram/update-telegram-name', {
       method: 'POST',
       credentials: 'include',
@@ -94,11 +97,11 @@ const ProfilePage = () => {
 
     const data = await response.json();
     if (data.success) {
-      alert('Telegram никнейм успешно обновлен!');
+      alert('Telegram username updated successfully!');
       setUser({ ...user, telegramName: newTelegramName });
       setIsEditingTelegramName(false);
     } else {
-      alert('Ошибка при обновлении никнейма.');
+      alert('Error updating username.');
     }
   };
 
@@ -110,13 +113,13 @@ const ProfilePage = () => {
           className={activeSection === 'profile' ? 'active' : ''}
           onClick={() => setActiveSection('profile')}
         >
-          Профиль
+          {t('Profile_header', language)}
         </button>
         <button
           className={activeSection === 'purchases' ? 'active' : ''}
           onClick={() => setActiveSection('purchases')}
         >
-          Покупки
+          {t('Purchases_header', language)}
         </button>
       </div>
       <div className="user-purchase-content">
@@ -135,21 +138,21 @@ const ProfilePage = () => {
                       value={newTelegramName}
                       onChange={(e) => setNewTelegramName(e.target.value)}
                     />
-                    <button onClick={handleUpdateTelegramName}>Сохранить</button>
+                    <button onClick={handleUpdateTelegramName}>Save</button>
                   </div>
                 ) : (
                   <div className="telegram-input">
-                    <span>{user.telegramName || 'Не указан'}</span>
-                    <button onClick={() => setIsEditingTelegramName(true)}>Изменить</button>
+                    <span>{user.telegramName || 'Not set'}</span>
+                    <button onClick={() => setIsEditingTelegramName(true)}>Edit</button>
                   </div>
                 )}
               </div>
               {user.telegramId ? (
-                <p><strong>Telegram ID:</strong> {user.telegramId}</p>
+                <p><strong>TG ID:</strong> {user.telegramId}</p>
               ) : (
                 <div className="telegram-section">
-                  <a href="/" target="_blank" rel="noopener noreferrer">
-                    Перейти в Telegram
+                  <a href="https://t.me/bufferka_shop_bot" target="_blank" rel="noopener noreferrer">
+                    Go to Telegram
                   </a>
                   <div className="telegram-input">
                     <input
@@ -158,14 +161,14 @@ const ProfilePage = () => {
                       value={telegramCode}
                       onChange={(e) => setTelegramCode(e.target.value)}
                     />
-                    <button onClick={handleVerifyCode}>Подтвердить</button>
+                    <button onClick={handleVerifyCode}>{t('Verify_button', language)}</button>
                   </div>
                 </div>
               )}
             </div>
           ) : (
             <div className="user-purchases">
-              <h2>Мои покупки</h2>
+              <h2>{t('MyPurchases', language)}</h2>
               {purchases.length > 0 ? (
                 <div className="purchases-container">
                   {purchases.map(purchase => (
@@ -175,22 +178,23 @@ const ProfilePage = () => {
                         <button className="copy-id-button" onClick={() => copyToClipboard(purchase.id)}></button>
                       </div>
                       <div className="purchase-content">
-                        <p><strong>Товары:</strong></p>
+                        <p><strong>{t('Products', language)}:</strong></p>
                         <ul>
                           {purchase.items.map((item, index) => (
                             <li key={index}>
-                              <strong>{item.name}</strong>
+                              <strong>{item[`name_${language}`] || item.name}</strong>
                               (x{item.quantity}) - {item.status}
                             </li>
                           ))}
                         </ul>
                         {purchase.coupon && (
                           <p>
-                            <strong>Применен купон:</strong> {purchase.coupon.code} (-{purchase.coupon.discountValue}%)
+                            <strong>{t('AppliedCoupon', language)}:</strong> {purchase.coupon.code} (-{purchase.coupon.discountValue}%)
                           </p>
                         )}
-                        <p><strong>Всего:</strong> {purchase.total} {purchase.currency}</p>
-                        <p><strong>Состояние покупки:</strong> {purchase.status}</p>
+                        <p className='money-amount'><strong>{t('Total', language)}:</strong> {purchase.total} {purchase.currency}</p>
+                        <p><strong>{t('Order_status', language)}:</strong> {purchase.status}</p>
+                        <p className='universal-date'><strong>{t('Date_last_update', language)}:</strong> {new Date(purchase.updatedAt).toLocaleString()}</p>
                       </div>
                     </div>
                   ))}

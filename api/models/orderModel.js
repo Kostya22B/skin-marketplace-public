@@ -42,7 +42,9 @@ const Order = sequelize.define('Order', {
   },
   cartId: {
     type: DataTypes.UUID,
-    allowNull: false,
+    allowNull: true, 
+    //.!. for deleting carts by trigger ones per month. 
+    // They are needed if user have some problems
     references: {
       model: Cart,
       key: 'id',

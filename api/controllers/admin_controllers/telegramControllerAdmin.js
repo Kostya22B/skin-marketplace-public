@@ -2,9 +2,11 @@ const TelegramBot = require('node-telegram-bot-api');
 const User = require('../../models/userModel');
 const Order = require('../../models/orderModel');
 const OrderItem = require('../../models/orderItemModel');
-const Product = require('../../models/productModel');
+const Product = require('../../models/shop/productModel');
 const { Op } = require('sequelize');
-require('dotenv').config();
+const envFile = process.env.NODE_ENV === 'uat' ? '.env.uat' : '.env';
+require('dotenv').config({ path: envFile });
+
 
 const token = process.env.TELEGRAM_API_KEY_ADMIN;
 const bot = new TelegramBot(token, { polling: true });
@@ -15,10 +17,8 @@ const isAdmin = async (chatId) => {
     return user && user.role === 'admin';
 };
 
-// today orders
 bot.onText(/\/today_orders/, async (msg) => {
     const chatId = msg.chat.id;
-
     if (!(await isAdmin(chatId))) {
         bot.sendMessage(chatId, 'У вас нет прав для выполнения этой команды.');
         return;
@@ -27,37 +27,55 @@ bot.onText(/\/today_orders/, async (msg) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const orders = await Order.findAll({
-        where: {
-            status: 'paid',
-            createdAt: {
-                [Op.gte]: today,
+    try {
+        const orders = await Order.findAll({
+            where: {
+                status: 'paid',
+                createdAt: {
+                    [Op.gte]: today,
+                },
             },
-        },
-        include: [
-            {
-                model: User,
-                as: 'User',
-                attributes: ['email', 'telegramName'],
-            },
-        ],
-        limit: 10,
-    });
+            include: [
+                {
+                    model: User,
+                    as: 'User',
+                    attributes: ['email', 'telegramName'],
+                },
+            ],
+            limit: 10,
+        });
 
-    if (orders.length === 0) {
-        bot.sendMessage(chatId, 'Сегодня нет заказов со статусом "paid".');
-        return;
+        if (orders.length === 0) {
+            bot.sendMessage(chatId, 'Сегодня нет заказов со статусом "paid".');
+            return;
+        }
+
+        const ordersList = orders.map((order, index) => {
+            const orderId = escapeMarkdownV2(order.id.toString());
+            const email = escapeMarkdownV2(order.User.email);
+            const orderStatus = escapeMarkdownV2(order.status.toString());
+            const telegramName = order.User.telegramName
+                ? escapeMarkdownV2(order.User.telegramName)
+                : 'Не указан';
+        
+            return `${index + 1} Заказ ID:\n\n\`\`\`\n${orderId}\n\`\`\`\n` +
+                   `Почта: ${email}\n` +
+                   `Status: ${orderStatus}\n` +
+                   `Telegram: ${telegramName}`;
+        }).join('\n\n');
+
+        bot.sendMessage(chatId, `Сегодняшние заказы:\n\n${ordersList}`, {
+            parse_mode: 'MarkdownV2',
+        });
+    } catch (error) {
+        console.error('Ошибка при получении заказов:', error);
+        bot.sendMessage(chatId, 'Произошла ошибка при обработке вашего запроса.');
     }
-
-    const ordersList = orders.map((order, index) => {
-        return `${index + 1}. Заказ ID: \n\n\`\`\`\n${order.id}\n\`\`\`\nПочта: ${order.User.email}\nTelegram: ${order.User.telegramName || 'Не указан'}`;
-    }).join('\n\n');
-
-    bot.sendMessage(chatId, `Сегодняшние заказы:\n\n${ordersList}`, {
-        parse_mode: 'Markdown',
-    });
-
 });
+
+function escapeMarkdownV2(text) {
+    return text.replace(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\$&');
+}
 
 
 bot.onText(/\/order_details ([a-fA-F0-9\-]+)/, async (msg, match) => {

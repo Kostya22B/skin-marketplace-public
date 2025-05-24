@@ -1,19 +1,23 @@
 // src/pages/PaymentFailure.js
 import React from 'react';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { t } from '../../utils/translateUtils';
+import './PaymentPages.css';
 
 const PaymentFailure = () => {
+  const { language } = useLanguage();
+
   return (
-    <div className="payment-failure">
-      <Header />
-      <div className="content">
-        <h1>Оплата не прошла</h1>
-        <p>К сожалению, оплата не была завершена. Попробуйте еще раз или свяжитесь с нашей поддержкой.</p>
-        <a href="/" className="button">Вернуться на главную страницу</a>
+    <>
+      <div className="payment-failure">
+        <div className="content">
+          <img src="/img/icons/failure.png" alt="failure" className="status-icon" />
+          <h1>{t('payment_failed_title', language)}</h1>
+          <p>{t('payment_failed_text', language)}</p>
+          <a href="/" className="button">{t('payment_back_home', language)}</a>
+        </div>
       </div>
-      <Footer />
-    </div>
+    </>
   );
 };
 

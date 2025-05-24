@@ -219,3 +219,92 @@ button:disabled {
   border-color: #ccc;
   color: #666;
 }
+
+/*Payment styles*/
+.payment-method-block {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.payment-method-label {
+  color: white;
+  font-size: 20px;
+}
+
+.payment-method-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.payment-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-radius: 10px;
+  background-color: #1e1e1e;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  color: white;
+}
+
+.payment-option input[type='radio'] {
+  display: none;
+}
+
+.payment-option-title {
+  font-size: 18px;
+}
+
+.payment-option-price {
+  font-weight: bold;
+  font-size: 18px;
+  color: #4fd1c5;
+}
+
+.payment-option.active {
+  border-color: #4fd1c5;
+  background-color: #2b2b2b;
+}
+
+.payment-confirm-button {
+  margin-top: 10px;
+  padding: 15px 30px;
+  background-color: #4fd1c5;
+  color: #1e1e1e;
+  font-weight: bold;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.payment-confirm-button:hover {
+  background-color: #38b2ac;
+}
+
+@media (max-width: 640px) {
+  .payment-method-block {
+    width: 90%;
+  }
+
+  .payment-option {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .payment-option-price {
+    align-self: flex-end;
+  }
+}

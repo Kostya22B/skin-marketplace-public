@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Kostya22B/skin-marketplace-public"
+    "url": "git+https://github.com/Kostya22B/skin-marketplace-public.git.git"
   },
   "author": "bondakos",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Kostya22B/skin-marketplace-public/issues"
+    "url": "https://github.com/Kostya22B/skin-marketplace-public.git/issues"
   },
-  "homepage": "https://github.com/Kostya22B/skin-marketplace-public#readme",
+  "homepage": "https://github.com/Kostya22B/skin-marketplace-public.git#readme",
   "dependencies": {
     "axios": "^1.7.9",
     "connect-session-sequelize": "^7.1.7",

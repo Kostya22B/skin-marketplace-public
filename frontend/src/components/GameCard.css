@@ -1,51 +1,77 @@
 /* src/components/GameCard.css */
-.game-card {
-    width: 380px;
-    display: inline-block;
-    margin: 10px;
-    text-align: center;
-    background-color: #213d42;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s;
-  }
-  
-  .game-card:hover {
-    transform: translateY(-10px);
-    -webkit-transform: translateY(-10px);
-    -moz-transform: translateY(-10px);
-    -ms-transform: translateY(-10px);
-    -o-transform: translateY(-10px);
+.game-cards-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 60px;
+  text-decoration: none;
 }
-  
 
-  .game-card-inner {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+.game-card {
+  width: 380px;
+  display: inline-block;
+  margin: 10px;
+  text-align: center;
+  background-color: #213d42;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.game-card:hover {
+  transform: translateY(-10px);
+  -webkit-transform: translateY(-10px);
+  -moz-transform: translateY(-10px);
+  -ms-transform: translateY(-10px);
+  -o-transform: translateY(-10px);
+}
+
+
+.game-card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.game-card:hover {
+  transform: scale(1.05);
+}
+
+.game-image {
+  object-fit: cover;
+}
+
+.game-title {
+  padding: 5px;
+  color: #fff;
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 425px) {
+  .game-card {
+    width: 300px;
   }
 
-  .game-card:hover {
-    transform: scale(1.05);
-  }
-  
   .game-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: 150px;
   }
-  
-  .game-title {
-    padding: 10px;
-    color: #fff;
-    font-size: 1.2em;
-    text-decoration: none;
-  }
-  @media only screen and (max-width: 425px) {
-    .game-card{
-      width: 300px;
-    }
-    .game-image{
-      height: 150px;
-    }
-  }
+}
+
+.game-image.hidden {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+.game-image.visible {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+  width: 380px;
+  height: 200px;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 200px;
+  background: #ccc;
+}

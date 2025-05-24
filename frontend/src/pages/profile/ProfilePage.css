@@ -181,3 +181,20 @@
 .profile-navigation button.active{
   background-color: #998d8d;
 }
+
+
+/*styles for user&admin for their purchase cards*/
+.id_email {
+  font-size: 16px;
+  color: #4fd1c5;
+}
+
+.money-amount {
+  font-weight: bold;
+  color: #ffcc00;
+}
+
+.universal-date {
+  font-size: 12px;
+  color: #ccc;
+}

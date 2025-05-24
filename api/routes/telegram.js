@@ -1,7 +1,7 @@
 // routes/telegram.js
 const express = require('express');
 const router = express.Router();
-const { isTelegramLinked, storeCode, verifyCode, notifyUser, updateTelegramName } = require('../controllers/user_controllers/telegramControllerUser');
+const { isTelegramLinked, storeCode, verifyCode, notifyUser, updateTelegramName } = require('../controllers/user_controllers/telegramController');
 require('../controllers/admin_controllers/telegramControllerAdmin');
 
 router.post('/is-linked', async (req, res) => {

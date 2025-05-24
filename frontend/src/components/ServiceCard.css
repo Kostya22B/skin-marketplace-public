@@ -131,8 +131,8 @@
     }
   }
   .link-button {
-    text-decoration: none; /* Убирает подчеркивание */
-    color: inherit;        /* Наследует цвет от кнопки */
-    display: inline-block; /* Соответствует кнопке */
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
   }
   

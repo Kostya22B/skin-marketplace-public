@@ -2,13 +2,7 @@
 .home-page {
   background-color: black;
 }
-.game-cards-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 60px;
-  text-decoration: none;
-}
+
 .content{
   display: flex;
   flex-direction: column;

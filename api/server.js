@@ -1,39 +1,35 @@
-// server.js
-
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const app = express();
 const sequelize = require('./db');
 const path = require('path');
-const { startCronJobs } = require('./workers/cronJobs');
+const { startCronJobsUpdateExpireOrders } = require('./workers/cronJobsUpdateExpireOrderStatus');
+const { startCronJobsDeleteExpireOrders } = require('./workers/cronJobsDeleteOrders');
 
+const envFile = process.env.NODE_ENV === 'uat' ? '.env.uat' : '.env';
+require('dotenv').config({ path: envFile });
 
-require('dotenv').config();
 require('./models/associations');
 
-// Sync all models with the database
-sequelize.sync({ force: false }).then(() => {
-}).catch((error) => {
-    console.error('Unable to connect to the database:', error);
-});
 sequelize.sync({ alter: true }).then(() => {
-    console.log('Database synchronized successfully with purchase');
-  }).catch((error) => {
+    console.log('Database synchronized successfully');
+}).catch((error) => {
     console.error('Error synchronizing database:', error);
-  });
+});
 
-// Middleware
-app.use(express.json()); // For parsing application/json
-app.use(express.urlencoded({ extended: true }));
+const app = express();
+
 app.use(cors({
-    origin: '',
+    origin: process.env.CORS_ORIGIN,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
-  }));
-  app.set('trust proxy', 1);
-  app.use(session({
+}));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.set('trust proxy', 1);
+app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
@@ -56,8 +52,6 @@ app.get('/api/user', (req, res) => {
     }
 });
 
-
-// Importing routes
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 const cartRoutes = require('./routes/cart');
@@ -71,9 +65,28 @@ app.use('/orders', orderRoutes);
 const telegramRoutes = require('./routes/telegram');
 app.use('/api/telegram', telegramRoutes);
 
-startCronJobs();
-// Starting the server
-const PORT = process.env.PORT || 5000;
+const userShopRoutes = require('./routes/user/shop/shop');
+app.use('/user/shops', userShopRoutes);
+const userShopCategoryRoutes = require('./routes/user/shop/categories');
+app.use('/user/categories', userShopCategoryRoutes);
+const userShopProductRoutes = require('./routes/user/shop/products');
+app.use('/user/products', userShopProductRoutes);
+
+//admin endpoints
+const shopShopRoutes = require('./routes/admin/shop/shop');
+app.use('/admin/shop', shopShopRoutes);
+const shopCategoryRoutes = require('./routes/admin/shop/categories');
+app.use('/admin/categories', shopCategoryRoutes);
+const shopProductRoutes = require('./routes/admin/shop/products');
+app.use('/admin/products', shopProductRoutes);
+
+
+const adminCoinsRoutes = require('./routes/adminCoinsTransactionsRoutes');
+app.use('/coins/admin', adminCoinsRoutes);
+
+startCronJobsUpdateExpireOrders();
+startCronJobsDeleteExpireOrders();
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

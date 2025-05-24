@@ -1,3 +1,23 @@
-# https://www.robotstxt.org/robotstxt.html
+# robots.txt for bufferka.shop
 User-agent: *
-Disallow:
+
+Disallow: /adminpanel/
+# Cart
+Disallow: /cart/
+Disallow: /user-cart/
+# Profile
+Disallow: /account/
+Disallow: /orders/
+Disallow: /profile/
+
+Disallow: /*?sort_by=
+Disallow: /*?filter=
+
+Disallow: /api/
+Disallow: /orders/
+Disallow: /auth/
+Disallow: /purchase/
+Disallow: /coins/
+
+# --- Allow other pages ---
+Allow: /

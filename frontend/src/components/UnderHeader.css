@@ -22,7 +22,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    color: #f0f0f0; /* Белый цвет текста */
+    color: #f0f0f0;
 }
 
 .back-button::before {
@@ -30,16 +30,16 @@
     display: inline-block;
     width: 15px;
     height: 15px;
-    border-top: 2px solid #f0f0f0; /* Белая стрелка */
-    border-left: 2px solid #f0f0f0; /* Белая стрелка */
+    border-top: 2px solid #f0f0f0;
+    border-left: 2px solid #f0f0f0;
     transform: rotate(-45deg);
-    margin-right: 10px; /* Отступ между стрелкой и текстом */
+    margin-right: 10px;
 }
 
 .back-button:hover::before {
-    border-color: #ffffff; /* Изменение цвета стрелки при наведении */
+    border-color: #ffffff;
 }
 
 .back-button:hover {
-    color: #ffffff; /* Изменение цвета текста при наведении */
+    color: #ffffff;
 }

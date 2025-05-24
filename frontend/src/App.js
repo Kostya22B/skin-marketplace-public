@@ -1,54 +1,40 @@
 // src/App.js
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
-import RustPage from './pages/RustPage';
-import PubgPage from './pages/PubgPage';
 import CartPage from './pages/CartPage';
 import PaymentSuccess from './pages/payment/PaymentSuccess';
 import PaymentFailure from './pages/payment/PaymentFailure';
-import MetroEscort from './pages/services/pubg_mobile/MetroEscort';
-import MetroShop from './pages/services/pubg_mobile/MetroShop';
-import UcShop from './pages/services/pubg_mobile/UcShop';
-import SkinShop from './pages/services/rust/SkinShop';
-import RaidHelper from './pages/services/rust/RaidHelper';
-import Farmbot from './pages/services/rust/Farmbot';
-import NightGuard from './pages/services/rust/NightGuard';
-import TwitchDrops from './pages/services/rust/TwitchDrops';
+import ShopPage from './pages/ShopPage';
+import CategoryPage from './pages/CategoryPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import { CurrencyProvider } from './contexts/CurrencyContext';
-
+import { LanguageProvider } from './contexts/LanguageContext';
+import AdminPanelPage from './pages/admin_pages/AdminPanelPage';
+import AdminShopManagementPage from './pages/admin_pages/AdminShopManagementPage';
 
 function App() {
-  
   return (
     <CurrencyProvider>
-    <Router>
-      {/* <Header currentCurrency={currency} onCurrencyChange={handleCurrencyChange} /> */}
-      <Routes>
-      <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
-        <Route path="/rust" element={<MainLayout><RustPage /></MainLayout>} />
-          <Route path="/rust/skin-shop" Component={SkinShop} />
-          <Route path="/rust/raid-helper" Component={RaidHelper} />
-          <Route path="/rust/farmbot" Component={Farmbot} />
-          <Route path="/rust/night-guard" Component={NightGuard} />
-          <Route path="/rust/twitch-drops" Component={TwitchDrops} />
-        <Route path="/pubg" element={<MainLayout><PubgPage /></MainLayout>} />
-        <Route path="/user-cart" element={<MainLayout><CartPage /></MainLayout>} />
-          <Route path="/pubg/escort-metro" Component={MetroEscort} />
-          <Route path="/pubg/metro-shop" Component={MetroShop} />
-          <Route path="/pubg/uc-shop" Component={UcShop} />
-
-          <Route path="/profile" element={<MainLayout><ProfilePage /></MainLayout>} />
-
-          <Route path="/payment/success" element={<PaymentSuccess/>} />
-          <Route path="/payment/failure" element={<PaymentFailure/>} />
-      </Routes>
-    </Router>
+      <LanguageProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<MainLayout><HomePage /></MainLayout>} />
+            <Route path="/user-cart" element={<MainLayout><CartPage /></MainLayout>} />
+            <Route path="/:shopLink" element={<MainLayout><ShopPage /></MainLayout>} />
+            <Route path="/:shopLink/:categoryLink" element={<MainLayout><CategoryPage /></MainLayout>} />
+            <Route path="/profile" element={<MainLayout><ProfilePage /></MainLayout>} />
+            <Route path="/payment/success" element={<MainLayout><PaymentSuccess /></MainLayout>} />
+            <Route path="/payment/failure" element={<MainLayout><PaymentFailure /></MainLayout>} />
+            {/* admin */}
+            <Route path="/adminpanel/work-panel" element={<MainLayout><AdminPanelPage /></MainLayout>} />
+            <Route path="/adminpanel/shop-preferences" element={<MainLayout><AdminShopManagementPage /></MainLayout>} />
+          </Routes>
+        </Router>
+      </LanguageProvider>
     </CurrencyProvider>
-
   );
 }
 

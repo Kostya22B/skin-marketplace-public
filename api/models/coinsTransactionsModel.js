@@ -26,6 +26,7 @@ const CoinsTransactions = sequelize.define('CoinsTransactions', {
       model: Order,
       key: 'id',
     },
+    onDelete: 'CASCADE',
   },
   amount: {
     type: DataTypes.FLOAT,

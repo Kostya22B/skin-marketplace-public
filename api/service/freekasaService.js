@@ -1,6 +1,7 @@
 const axios = require('axios');
 const crypto = require('crypto');
 
+// Disabled because of FreeKasa config
 async function checkPaymentStatus(orderId) {
   const url = 'https://api.freekassa.com/v1/orders/status';
   const shopId = process.env.MERCHANT_ID;

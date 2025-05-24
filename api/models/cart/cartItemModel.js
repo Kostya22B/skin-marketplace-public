@@ -2,7 +2,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../db');
 const Cart = require('../cart/cartModel');
-const Product = require('../productModel');
+const Product = require('../shop/productModel');
 
 const CartItem = sequelize.define('CartItem', {
   id: {
@@ -20,8 +20,8 @@ const CartItem = sequelize.define('CartItem', {
     onDelete: 'CASCADE',
   },
   productId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+    type: DataTypes.UUID,
+    allowNull: true,
     references: {
       model: Product,
       key: 'id',

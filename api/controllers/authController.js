@@ -1,6 +1,8 @@
 const { google } = require('googleapis');
 const User = require('../models/userModel');
-require('dotenv').config();
+const envFile = process.env.NODE_ENV === 'uat' ? '.env.uat' : '.env';
+require('dotenv').config({ path: envFile });
+
 
 const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
@@ -12,8 +14,8 @@ exports.login = (req, res) => {
     const url = oauth2Client.generateAuthUrl({
         access_type: 'online',
         scope: [
-            'https://www.googleapis.com/auth/userinfo.profile',
-            'https://www.googleapis.com/auth/userinfo.email',
+            'userinfo.profile',
+            'userinfo.email',
             'openid'
         ],
     });
