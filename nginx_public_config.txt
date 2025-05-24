@@ -1,0 +1,78 @@
+# HTTPS server block
+server {
+    listen 443 ssl;
+    server_name example;
+    ssl_certificate example/fullchain.pem;
+    ssl_certificate_key example/privkey.pem;
+    ssl_dhparam example/ssl-dhparams.pem;
+
+    root '';
+    index index.html;
+    #Safety configuration
+	gzip on;
+	gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+	gzip_min_length 256;
+    
+    add_header Content-Security-Policy "
+  default-src 'self';
+  script-src 'self' https://cdn.freekassa.com 'sha256-' 'sha256-';
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  img-src 'self' data: https://cdn.freekassa.com https://lh3.googleusercontent.com https://fonts.gstatic.com;
+  connect-src 'self' https://apis.google.com https://cdn.freekassa.com;
+  font-src 'self' https://fonts.gstatic.com data:;
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'self';
+  manifest-src 'self';
+  upgrade-insecure-requests;";
+
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Frame-Options DENY;
+    add_header X-XSS-Protection "1; mode=block";
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "geolocation=(), microphone=(), camera=()" always;
+    # Frontend handling
+    location / {
+        try_files $uri /index.html;
+    }
+
+    # General backend routing for multiple paths
+    location ~ ^/(api|auth|cart|purchase|orders|coins|admin|user)/ {
+        proxy_pass http://localhost:1234;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Cookie $http_cookie;
+
+        # Debugging headers for cookies
+        add_header Set-Cookie $upstream_http_set_cookie;
+        add_header Debug-Cookie $http_cookie;
+
+        add_header Access-Control-Allow-Origin "prod link";
+        add_header Access-Control-Allow-Credentials "true";
+    }
+
+
+}
+
+# HTTP-to-HTTPS redirect block
+server {
+    if ($host = www.example.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = example.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name example.com www.example.com;
+    return 301 https://$host$request_uri;
+
+}
